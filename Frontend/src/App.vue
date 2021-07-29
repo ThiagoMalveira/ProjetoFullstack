@@ -73,13 +73,13 @@ export default {
       }
     }
   },
-   methods: {
-     grava() {
-       this.$http
-         .post('http://localhost:3000/cliente', this.cliente)
-         .then(() => this.cliente = new Cliente(), err => console.log(err));
-     }
-   }
+  //  methods: {
+  //    grava() {
+  //      this.$http
+  //        .post('http://localhost:3000/cliente', this.cliente)
+  //        .then(() => this.cliente = new Cliente(), err => console.log(err));
+  //    }
+  //  }
   
 }
 </script>
@@ -225,9 +225,11 @@ textarea.form-control {
   height: auto;
 }
 .text-center {
+  margin-top: 50px;
   text-align: center;
 }
 .form-group {
+  margin-top: 50px;
   margin-bottom: 15px;
   margin-right: 15px;
   margin-left: 150px;
@@ -236,6 +238,7 @@ textarea.form-control {
   align-items: center;
 }
 .btn-primary {
+  margin-top: 50px;
   background-image: -webkit-linear-gradient(top, #337ab7 0%, #265a88 100%);
   background-image:      -o-linear-gradient(top, #337ab7 0%, #265a88 100%);
   background-image: -webkit-gradient(linear, left top, left bottom, from(#337ab7), to(#265a88));
