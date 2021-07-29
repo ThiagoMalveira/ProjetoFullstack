@@ -1,4 +1,4 @@
-  import './setup/db'
+import './setup/db'
 
 import { server } from './setup/server'
 import { UserModel } from './models/user'
