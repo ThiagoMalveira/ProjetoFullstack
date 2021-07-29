@@ -19,11 +19,11 @@
         <button class="btn btn-primary" type="submit">Incluir Cliente</button>
     </form>
     <input type="search" class="filtro" @input="filtro = $event.target.value" placeholder="Filtre por cliente">
-
+  <vue-scroll :ops="ops" v-if="!loading">
     <VDataTable
         id="cliente-table"
         :headers="headers"
-        :items="sales"
+        :items="cliente"
         hide-actions
         :must-sort="true"
         @update:pagination="sort"
@@ -37,13 +37,26 @@
           <td>{{ cliente.valor }}</td>
         </template>
       </VDataTable>
+    </vue-scroll>
   </div>
 </template>
 
 <script>
+import vuescroll from 'vuescroll';
+
 export default {
+  components: {
+    vuescroll
+  },
   data(){
     return {
+      ops: {
+        bar: {
+          background: '#000',
+          opacity: 0.2,
+          keepShow: true
+        }
+      },
       cliente: {
         nome: '',
         email: '',
@@ -60,6 +73,10 @@ export default {
         { text: 'Email', value: 'email', sortable: true },
         { text: 'Valor', value: 'valor', sortable: true }
       ],
+      currentSort: {
+        order: 'asc',
+        sort: 'name'
+      }
   }
 },
   computed: {
