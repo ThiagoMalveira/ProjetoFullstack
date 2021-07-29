@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1 class="text-center">Clientes Inadimplentes</h1>
-      <form class="form" > 
+      <form class="form" @submit.prevent="grava()"> 
         <div class="form-group">
             <label>Nome </label>
             <input v-model.lazy="cliente.name" placeholder="Nome Completo" id="nome" class="form-control" autocomplete="off" required autofocus/>        
@@ -21,7 +21,7 @@
     <input type="search" class="filtro" @input="filtro = $event.target.value" placeholder="Filtre por cliente">
 
     <VDataTable
-        id="sale-table"
+        id="cliente-table"
         :headers="headers"
         :items="sales"
         hide-actions
@@ -31,10 +31,10 @@
         class="my-4"
         :class="{ loading: false }"
       >
-        <template slot="items" slot-scope="props">
-          <td>{{ props.cliente.nome }}</td>
-          <td>{{ props.cliente.email }}</td>
-          <td>{{ props.cliente.valor }}</td>
+        <template slot="cliente">
+          <td>{{ cliente.nome }}</td>
+          <td>{{ cliente.email }}</td>
+          <td>{{ cliente.valor }}</td>
         </template>
       </VDataTable>
   </div>
@@ -48,7 +48,18 @@ export default {
         nome: '',
         email: '',
         valor: ''
-      }
+      },
+      defaultPagination: {
+        descending: true,
+        rowsPerPage: 10,
+        page: 1,
+        sortBy: 'Valor',
+        totalItems: 0
+      },headers: [
+        { text: 'Nome', value: 'nome', sortable: true },
+        { text: 'Email', value: 'email', sortable: true },
+        { text: 'Valor', value: 'valor', sortable: true }
+      ],
   }
 },
   computed: {
@@ -62,19 +73,29 @@ export default {
       }
     }
   },
-  // methods: {
-
-  //   grava() {
-  //     this.$http
-  //       .post('http://localhost:3000/cliente', this.cliente)
-  //       .then(() => this.cliente = new Cliente(), err => console.log(err));
-  //   }
-  // }
+   methods: {
+     grava() {
+       this.$http
+         .post('http://localhost:3000/cliente', this.cliente)
+         .then(() => this.cliente = new Cliente(), err => console.log(err));
+     }
+   }
   
 }
 </script>
 
 <style>
+#cliente-table td {
+  text-overflow: ellipsis;
+  max-width: 200px;
+  overflow: hidden;
+  white-space: nowrap;
+  transition: 1s;
+}
+#cliente-table td:hover {
+  max-width: 1000px !important;
+  transition: 1s;
+}
 .lista-cliente .lista-cliente-item {
 
     display: inline-block;
