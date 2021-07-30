@@ -18,69 +18,39 @@
         </div>
         <button class="btn btn-primary" type="submit">Incluir Cliente</button>
     </form>
-    <input type="search" class="filtro" @input="filtro = $event.target.value" placeholder="Filtre por cliente">
-  <vue-scroll :ops="ops" v-if="!loading">
-    <VDataTable
-        id="sale-table"
-        :headers="headers"
-        :items="sales"
-        hide-actions
-        :must-sort="true"
-        @update:pagination="sort"
-        :pagination="defaultPagination"
-        class="my-4"
-        :class="{ loading: false }"
-      >
-        <template slot="cliente">
-          <td>{{ cliente.nome }}</td>
-          <td>{{ cliente.email }}</td>
-          <td>{{ cliente.valor }}</td>
-        </template>
-      </VDataTable>
-    </vue-scroll>
+      <div>
+      <table class="table table-hover table-bordered">
+        <thead>
+                <tr>
+                    <th onclick="ordena('nome')">NOME</th>
+                    <th onclick="ordena('email')">EMAIL</th>
+                    <th onclick="orderna('valor')">VALOR</th>
+                </tr>
+        </thead>
+        <tbody>
+            <tr>
+              <td>`${cliente.name}`</td>
+              <td>${cliente.email}</td>
+              <td>${cliente.valor}</td>
+            </tr>
+        </tbody>
+      </table>
+      </div>
   </div>
 </template>
 
 <script>
-import vuescroll from 'vuescroll';
-
 export default {
-  components: {
-    vuescroll
-  },
   data(){
     return {
-      ops: {
-        bar: {
-          background: '#000',
-          opacity: 0,
-          keepShow: true
-        }
-      },
       cliente: {
         nome: '',
         email: '',
         valor: ''
-      },
-      defaultPagination: {
-        descending: true,
-        rowsPerPage: 10,
-        page: 1,
-        sortBy: 'Valor',
-        totalItems: 0
-      },headers: [
-        { text: 'Nome', value: 'nome', sortable: true },
-        { text: 'Email', value: 'email', sortable: true },
-        { text: 'Valor', value: 'valor', sortable: true }
-      ],
-      currentSort: {
-        order: 'asc',
-        sort: 'nome'
       }
-  }
-},
+    }
+  }, 
   computed: {
-
     clientesFiltro() {
       if(this.filtro) {
         let exp = new RegExp(this.filtro.trim(), 'i');
@@ -100,44 +70,71 @@ export default {
         this.$http.get('http://localhost:3000/')
           .then(res => res.json())
           .then(cliente => this.cliente = cliente, err => console.log(err));
-  }
-
+      },
+      ordena(coluna) {
+        if(this._ordemAtual == coluna) {
+            inverteOrdem(); 
+        } else {
+            ordena((p, s) => p[coluna] - s[coluna]);    
+        }
+        this._ordemAtual = coluna;    
+    }  
     }
-  
-}
+  }
 </script>
 
 <style>
-#cliente-table td {
-  text-overflow: ellipsis;
-  max-width: 200px;
-  overflow: hidden;
-  white-space: nowrap;
-  transition: 1s;
+.table {
+  margin-top: 150px;
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 20px;
+  border-radius: 30px solid;
 }
-#cliente-table td:hover {
-  max-width: 1000px !important;
-  transition: 1s;
+.table > thead > tr > th,
+.table > tbody > tr > th,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > tbody > tr > td,
+.table > tfoot > tr > td {
+  padding: 8px;
+  line-height: 1.42857143;
+  vertical-align: top;
+  border-top: 1px solid #ddd;
 }
-.lista-cliente .lista-cliente-item {
-
-    display: inline-block;
-  }
-.lista-cliente {
-    list-style: none;
-  }
-.filtro {
-    margin-top: 30px;
-    float:left;
-    background-color:#E0EEEE;
-    border-radius:10px black;
-    margin-left: 5%;
-    padding-left:5px;
-    font-size:18px;
-    border:none;
-    height:100%;
-    width:90%;
-  }
+.table > thead > tr > th {
+  vertical-align: bottom;
+  border-bottom: 2px solid #ddd;
+}
+.table > caption + thead > tr:first-child > th,
+.table > colgroup + thead > tr:first-child > th,
+.table > thead:first-child > tr:first-child > th,
+.table > caption + thead > tr:first-child > td,
+.table > colgroup + thead > tr:first-child > td,
+.table > thead:first-child > tr:first-child > td {
+  border-top: 0;
+}
+.table > tbody + tbody {
+  border-top: 2px solid #ddd;
+}
+.table .table {
+  background-color: #fff;
+}
+table {
+  background-color: transparent;
+}
+.table td,
+.table th {
+  background-color: #fff !important;
+}
+.table-bordered th,
+.table-bordered td {
+  border: 1px solid #ddd !important;
+}
+table {
+  border-spacing: 0;
+  border-collapse: collapse !important;
+}
 .btn:focus,
 .btn:active:focus,
 .btn.active:focus,

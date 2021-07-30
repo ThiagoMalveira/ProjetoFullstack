@@ -1,31 +1,11 @@
 import Vue from 'vue';
 import Vuetify, {
-  VDataTable,
-  VTreeview,
-  VSelect,
-  VList,
-  VListGroup,
-  VMenu,
-  VDatePicker,
-  VToolbar,
-  VListTile,
-  VListTileAvatar,
-  VListTileContent
+  VDataTable
 } from 'vuetify/lib';
 
 Vue.use(Vuetify, {
   components: {
-    VDataTable,
-    VTreeview,
-    VSelect,
-    VToolbar,
-    VList,
-    VListGroup,
-    VMenu,
-    VDatePicker,
-    VListTile,
-    VListTileAvatar,
-    VListTileContent
+    VDataTable
   },
   theme: {
     primary: '#ee44aa',
@@ -36,6 +16,5 @@ Vue.use(Vuetify, {
     success: '#4CAF50',
     warning: '#FFC107'
   },
-  customProperties: true,
-  iconfont: 'md'
+  customProperties: true
 });
