@@ -9,21 +9,21 @@
         
         <div class="form-group">
             <label>Email </label>
-            <input v-model.lazy="cliente.email" class="form-control" value=" " required/>
+            <input v-model.lazy="cliente.email" placeholder="Inserir email" class="form-control" value=" " required/>
         </div>
         
         <div class="form-group">
             <label for="valor">Valor </label>
-            <input id="valor" v-model.lazy="cliente.valor" class="form-control" value="R$ 0.00" required />
+            <input id="valor" v-model.lazy="cliente.valor" placeholder="Insira o valor em reais" class="form-control" value="R$ 0.00" required />
         </div>
         <button class="btn btn-primary" type="submit">Incluir Cliente</button>
     </form>
     <input type="search" class="filtro" @input="filtro = $event.target.value" placeholder="Filtre por cliente">
   <vue-scroll :ops="ops" v-if="!loading">
     <VDataTable
-        id="cliente-table"
+        id="sale-table"
         :headers="headers"
-        :items="cliente"
+        :items="sales"
         hide-actions
         :must-sort="true"
         @update:pagination="sort"
@@ -53,7 +53,7 @@ export default {
       ops: {
         bar: {
           background: '#000',
-          opacity: 0.2,
+          opacity: 0,
           keepShow: true
         }
       },
@@ -75,7 +75,7 @@ export default {
       ],
       currentSort: {
         order: 'asc',
-        sort: 'name'
+        sort: 'nome'
       }
   }
 },
@@ -90,13 +90,19 @@ export default {
       }
     }
   },
-  //  methods: {
-  //    grava() {
-  //      this.$http
-  //        .post('http://localhost:3000/cliente', this.cliente)
-  //        .then(() => this.cliente = new Cliente(), err => console.log(err));
-  //    }
-  //  }
+    methods: {
+      grava() {
+        this.$http
+          .post('http://localhost:3000/', this.cliente)
+          .then(() => this.cliente = new Cliente(), err => console.log(err));
+      },
+      created() {
+        this.$http.get('http://localhost:3000/')
+          .then(res => res.json())
+          .then(cliente => this.cliente = cliente, err => console.log(err));
+  }
+
+    }
   
 }
 </script>
