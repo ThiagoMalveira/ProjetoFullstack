@@ -4,7 +4,7 @@ const Client = require('../models/Client.js');
 
 const router = express.Router();
 
-router.post('/', async(req, res) => {
+router.post('/create', async(req, res) => {
     try {
         const client =  await Client.create(req.body);
 
@@ -15,7 +15,7 @@ router.post('/', async(req, res) => {
     }
 });
 
-router.get('/', async(req, res) => {
+router.get('/show', async(req, res) => {
     try {
         const client =  await Client.show(req.body);
 
@@ -26,4 +26,4 @@ router.get('/', async(req, res) => {
     }
 });
 
-module.exports = app => app.use('/', router);
+module.exports = app => app.use('/principal', router);

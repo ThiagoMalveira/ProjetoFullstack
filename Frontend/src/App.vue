@@ -29,9 +29,9 @@
         </thead>
         <tbody>
             <tr v-for="cliente in clientesFiltro" :key="cliente">
-              <td>${clients.name}</td>
-              <td>${clients.email}</td>
-              <td>${clients.valor}</td>
+              <td>${cliente.name}</td>
+              <td>${cliente.email}</td>
+              <td>${cliente.valor}</td>
             </tr>
         </tbody>
       </table>
@@ -52,22 +52,17 @@ export default {
   }, 
   computed: {
     clientesFiltro() {
-      if(this.filtro) {
-        let exp = new RegExp(this.filtro.trim(), 'i');
-        return this.cliente.filter(cliente => exp.test(cliente.nome));
-      } else {
-        return this.cliente;
-      }
+      return this.cliente;
     }
   },
     methods: {
       grava() {
         this.$http
-          .post('http://localhost:3000/', this.cliente)
-          .then(() => this.cliente = new Cliente(), err => console.log(err));
+          .post('http://localhost:3000/principal/create', this.cliente)
+          .then(() => this.cliente = new Client(), err => console.log(err));
       },
-      created() {
-        this.$http.get('http://localhost:3000/')
+      show() {
+        this.$http.get('http://localhost:3000/principal/show')
           .then(res => res.json())
           .then(cliente => this.cliente = cliente, err => console.log(err));
       },
