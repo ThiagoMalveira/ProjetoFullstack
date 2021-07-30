@@ -22,16 +22,16 @@
       <table class="table table-hover table-bordered">
         <thead>
                 <tr>
-                    <th onclick="ordena('nome')">NOME</th>
-                    <th onclick="ordena('email')">EMAIL</th>
-                    <th onclick="orderna('valor')">VALOR</th>
+                    <th @click="sorteUsers('nome')">NOME</th>
+                    <th @click="sorteUsers('email')">EMAIL</th>
+                    <th @click="sorteUsers('valor')">VALOR</th>
                 </tr>
         </thead>
         <tbody>
-            <tr>
-              <td>`${cliente.name}`</td>
-              <td>${cliente.email}</td>
-              <td>${cliente.valor}</td>
+            <tr v-for="cliente in clientesFiltro" :key="cliente">
+              <td>${clients.name}</td>
+              <td>${clients.email}</td>
+              <td>${clients.valor}</td>
             </tr>
         </tbody>
       </table>
@@ -71,14 +71,11 @@ export default {
           .then(res => res.json())
           .then(cliente => this.cliente = cliente, err => console.log(err));
       },
-      ordena(coluna) {
-        if(this._ordemAtual == coluna) {
-            inverteOrdem(); 
-        } else {
-            ordena((p, s) => p[coluna] - s[coluna]);    
-        }
-        this._ordemAtual = coluna;    
-    }  
+      sortUsers: function(chave) {
+      this.users.sort(function(a, b) {
+        return a[chave].localeCompare(b[chave])
+      });
+    } 
     }
   }
 </script>

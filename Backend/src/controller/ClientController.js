@@ -8,7 +8,7 @@ router.post('/', async(req, res) => {
     try {
         const client =  await Client.create(req.body);
 
-        return res.send({ client });
+        return res.send({ client }, "Cliente criado");
 
     }catch (err){
         return res.status(400).send({error: 'Falha ao criar cliente'})
