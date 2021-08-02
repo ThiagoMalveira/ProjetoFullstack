@@ -2,25 +2,23 @@ version: "3.1"
 services:
   db:
     image: mongo:4.2
-    container_name: db
+    container_name: mongo
     restart: always
     ports:
-      - ${DB_PORT}:27017
+      - 27017:27017
     environment:
-      MONGO_INITDB_DATABASE: ${DB_NAME}
-      MONGO_INITDB_ROOT_USERNAME: ${DB_USER}
-      MONGO_INITDB_ROOT_PASSWORD: ${DB_PASS}
+      MONGO_INITDB_DATABASE: Admin
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: 123
 
   api:
     image: node:14.17.3
     container_name: api
     restart: always
-    env_file:
-     - .env
     depends_on:
       - db
     ports:
-      - ${SERVER_PORT}:${SERVER_PORT}
+      - 3000:3000
     volumes:
       - .:/usr/src/app
     working_dir: /usr/src/app
