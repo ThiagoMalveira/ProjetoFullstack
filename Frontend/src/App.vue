@@ -28,7 +28,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr v-for="cliente in clientesFiltro" :key="cliente">
+            <tr v-for="cliente in cliente" :key="cliente">
               <td>${cliente.nome}</td>
               <td>${cliente.email}</td>
               <td>${cliente.valor}</td>
@@ -51,9 +51,7 @@ export default {
     }
   }, 
   computed: {
-    clientesFiltro() {
-      return this.cliente;
-    }
+  
   },
     methods: {
       grava() {
