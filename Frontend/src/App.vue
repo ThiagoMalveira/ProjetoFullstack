@@ -21,11 +21,11 @@
       <div>
       <table class="table table-hover table-bordered">
         <thead>
-                <tr>
-                    <th @click="sorteUsers('nome')">NOME</th>
-                    <th @click="sorteUsers('email')">EMAIL</th>
-                    <th @click="sorteUsers('valor')">VALOR</th>
-                </tr>
+            <tr>
+              <th @click="sorteUsers('nome')">NOME</th>
+              <th @click="sorteUsers('email')">EMAIL</th>
+              <th @click="sorteUsers('valor')">VALOR</th>
+            </tr>
         </thead>
         <tbody>
             <tr v-for="cliente in clientesFiltro" :key="cliente">
