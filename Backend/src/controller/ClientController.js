@@ -17,13 +17,13 @@ router.post('/create', async(req, res) => {
 
 router.get('/show', async(req, res) => {
     try {
-        const client =  await Client.show(req.body);
+        const client =  await Client.show();
 
-        return res.send({ client });
+        return res.show({ client });
 
     }catch (err){
         return res.status(400).send({error: 'Falha ao encontrar clientes'})
     }
 });
 
-module.exports = app => app.use('/principal', router);
+module.exports = app => app.use('', router);

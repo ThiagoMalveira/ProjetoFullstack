@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require('../database/Index');
 
 const ClientSchema = new mongoose.Schema({
     name: {

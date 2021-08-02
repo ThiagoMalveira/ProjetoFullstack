@@ -1,6 +1,6 @@
-const mongoose = require('../database');
+const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://127.0.0.1:27017/', {useMongoClient: true});
+mongoose.connect('mongodb://localhost:27017/NodeTest', {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true});
 mongoose.Promise = global.Promise;
 
 module.exports = mongoose;

@@ -14,6 +14,7 @@
     "vue": "^2.6.11",
     "vue-infinite-scroll": "^2.0.2",
     "vue-router": "^3.5.2",
+    "vue-sorted-table": "^1.3.0",
     "vuescroll": "^4.17.3",
     "vuetify": "^2.5.7"
   },

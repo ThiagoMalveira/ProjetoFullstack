@@ -5,13 +5,11 @@
         <div class="form-group">
             <label>Nome </label>
             <input v-model.lazy="cliente.nome" placeholder="Nome Completo" id="nome" class="form-control" autocomplete="off" required autofocus/>        
-        </div>    
-        
+        </div>
         <div class="form-group">
             <label>Email </label>
             <input v-model.lazy="cliente.email" placeholder="Inserir email" class="form-control" value=" " required/>
         </div>
-        
         <div class="form-group">
             <label for="valor">Valor</label>
             <input id="valor" v-model.lazy="cliente.valor" placeholder="Insira o valor em reais" class="form-control" value="R$ 0.00" required />
@@ -19,56 +17,55 @@
         <button class="btn btn-primary" type="submit">Incluir Cliente</button>
     </form>
       <div>
-      <table class="table table-hover table-bordered">
-        <thead>
-            <tr>
-              <th @click="sorteUsers('nome')">NOME</th>
-              <th @click="sorteUsers('email')">EMAIL</th>
-              <th @click="sorteUsers('valor')">VALOR</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr v-for="clientes in cliente" :key="clientes">
-              <td>${clientes.nome}</td>
-              <td>${clientes.email}</td>
-              <td>${clientes.valor}</td>
-            </tr>
-        </tbody>
-      </table>
+        <sorted-table
+              :values="cliente"
+              ascIcon="<span> ▲</span>"
+              descIcon="<span> ▼</span>"
+              class="table table-hover table-bordered">
+            <thead>
+                <tr>
+                  <th><sort-link name="nome">NOME</sort-link></th>
+                  <th><sort-link name="email">EMAIL</sort-link></th>
+                  <th><sort-link name="valor">VALOR</sort-link></th>
+                </tr>
+            </thead>
+            <template #body="sort">
+              <tbody>
+                  <tr v-for="cliente in sort.clientes" :key="cliente.valor">
+                    <td>${cliente.nome}</td>
+                    <td>${cliente.email}</td>
+                    <td>${cliente.valor}</td>
+                  </tr>
+              </tbody>
+            </template>
+        </sorted-table>
       </div>
   </div>
 </template>
 
 <script>
+import { SortedTable, SortLink } from "vue-sorted-table";
 export default {
+  components: {
+    SortedTable,
+    SortLink
+  },
   data(){
     return {
-      cliente: {
-        nome: '',
-        email: '',
-        valor: ''
-      }
+        cliente: []
     }
   }, 
-  computed: {
-  
-  },
     methods: {
       grava() {
         this.$http
-          .post('http://localhost:3000/principal/create', this.cliente)
+          .post('http://localhost:3000/create', this.cliente)
           .then(() => this.cliente = new Client(), err => console.log(err));
       },
       show() {
-        this.$http.get('http://localhost:3000/principal/show')
+        this.$http.get('http://localhost:3000/show')
           .then(res => res.json())
           .then(cliente => this.cliente = cliente, err => console.log(err));
-      },
-      sortUsers: function(chave) {
-      this.users.sort(function(a, b) {
-        return a[chave].localeCompare(b[chave])
-      });
-    } 
+      }
     }
   }
 </script>
