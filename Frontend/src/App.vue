@@ -13,7 +13,7 @@
         </div>
         
         <div class="form-group">
-            <label for="valor">Valor </label>
+            <label for="valor">Valor</label>
             <input id="valor" v-model.lazy="cliente.valor" placeholder="Insira o valor em reais" class="form-control" value="R$ 0.00" required />
         </div>
         <button class="btn btn-primary" type="submit">Incluir Cliente</button>
@@ -29,7 +29,7 @@
         </thead>
         <tbody>
             <tr v-for="cliente in clientesFiltro" :key="cliente">
-              <td>${cliente.name}</td>
+              <td>${cliente.nome}</td>
               <td>${cliente.email}</td>
               <td>${cliente.valor}</td>
             </tr>
