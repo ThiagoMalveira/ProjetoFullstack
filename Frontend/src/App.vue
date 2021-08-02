@@ -4,7 +4,7 @@
       <form class="form" @submit.prevent="grava()"> 
         <div class="form-group">
             <label>Nome </label>
-            <input v-model.lazy="cliente.name" placeholder="Nome Completo" id="nome" class="form-control" autocomplete="off" required autofocus/>        
+            <input v-model.lazy="cliente.nome" placeholder="Nome Completo" id="nome" class="form-control" autocomplete="off" required autofocus/>        
         </div>    
         
         <div class="form-group">
