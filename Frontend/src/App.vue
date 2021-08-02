@@ -28,10 +28,10 @@
             </tr>
         </thead>
         <tbody>
-            <tr v-for="cliente in cliente" :key="cliente">
-              <td>${cliente.nome}</td>
-              <td>${cliente.email}</td>
-              <td>${cliente.valor}</td>
+            <tr v-for="clientes in cliente" :key="clientes">
+              <td>${clientes.nome}</td>
+              <td>${clientes.email}</td>
+              <td>${clientes.valor}</td>
             </tr>
         </tbody>
       </table>
