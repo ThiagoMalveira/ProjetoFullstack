@@ -13,7 +13,7 @@ const clienteSchema = new Schema({
         lowercase: true,
     },
     valor: {
-        type: String,
+        type: Number,
         required: true
     },
     createdAt: {
