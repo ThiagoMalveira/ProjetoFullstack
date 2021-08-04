@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1 class="text-center">Clientes Inadimplentes</h1>
-      <form class="form" @submit.prevent="grava()"> 
+      <form class="form" @submit.prevent="create()"> 
         <div class="form-group">
             <label>Nome </label>
             <input v-model.lazy="cliente.nome" placeholder="Nome Completo" class="form-control" autocomplete="off" required autofocus/>        
@@ -29,12 +29,12 @@
                   <th><sort-link name="valor">VALOR</sort-link></th>
                 </tr>
             </thead>
-            <template #body="sort">
+            <template>
               <tbody>
-                  <tr v-for="cliente in sort.cliente" :key="cliente.valor">
-                    <td>${cliente.nome}</td>
-                    <td>${cliente.email}</td>
-                    <td>${cliente.valor}</td>
+                  <tr>
+                    <td>{{cliente.nome}}</td>
+                    <td>{{cliente.email}}</td>
+                    <td>{{cliente.valor}}</td>
                   </tr>
               </tbody>
             </template>
@@ -52,30 +52,28 @@ export default {
   },
   data(){
     return {
-        cliente: {
+        cliente: [{
           "nome": "",
           "email": "",
           "valor": ""
-        }
+        }],
     }
-  }, 
+  },
   methods: {
     async getData() {
-      try {
-        const response = await fetch(
-          "http://localhost:3000/show"
-        );
-        // JSON responses are automatically parsed.
-        this.cliente = response.data;
-      } catch (error) {
-        console.log(error);
-      }
+      axios
+      .get('http://localhost:3000/show')
+      .then(response => (this.cliente = response.json))
+      
     },
       grava(){
         this.$http
           .post('http://localhost:3000/create', this.cliente)
           .then(() => this.cliente = new cliente(), err => console.log(err));
       },
+      created() {
+        this.getData();
+      }
     }
   }
 </script>
