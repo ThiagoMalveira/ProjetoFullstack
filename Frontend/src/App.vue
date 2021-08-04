@@ -52,20 +52,19 @@ export default {
   },
   data(){
     return {
-        cliente: []
+        cliente: {
+          "nome": "",
+          "email": "",
+          "valor": ""
+        }
     }
   }, 
     methods: {
-      grava() {
+      grava(){
         this.$http
           .post('http://localhost:3000/create', this.cliente)
-          .then(() => this.cliente = new Client(), err => console.log(err));
+          .then(() => this.cliente = new Cliente(), err => console.log(err));
       },
-      show() {
-        this.$http.get('http://localhost:3000/show')
-          .then(res => res.json())
-          .then(cliente => this.cliente = cliente, err => console.log(err));
-      }
     }
   }
 </script>
