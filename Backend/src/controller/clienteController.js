@@ -1,8 +1,6 @@
 const Cliente = require('../models/Cliente');
 
 module.exports.create = function(req, res){
-    console.log(req.body,
-        'AQUI CARALHO DESGRAÇA');
     const novoCliente = new Cliente({
       nome: req.body.nome,
       email: req.body.email,
