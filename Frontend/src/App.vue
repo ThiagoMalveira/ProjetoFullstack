@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1 class="text-center">Clientes Inadimplentes</h1>
-      <form class="form" @submit.prevent="create()"> 
+      <form class="form" @submit.prevent="grava()"> 
         <div class="form-group">
             <label>Nome </label>
             <input v-model.lazy="cliente.nome" placeholder="Nome Completo" class="form-control" autocomplete="off" required autofocus/>        
@@ -56,24 +56,27 @@ export default {
           "nome": "",
           "email": "",
           "valor": ""
-        }],
+        }],  
     }
   },
-  methods: {
+mounted(){
+    this.getData();
+  },
+methods: {
     async getData() {
-      axios
+      this.$http
       .get('http://localhost:3000/show')
-      .then(response => (this.cliente = response.json))
+      .then(response => {(this.cliente = response.json)})
+      .catch(e => {
+        console.log(e)
+      })
       
     },
       grava(){
-        axios
+        this.$http
           .post('http://localhost:3000/create', this.cliente)
           .then(() => this.cliente = new cliente(), err => console.log(err));
       },
-      created() {
-        this.getData();
-      }
     }
   }
 </script>
