@@ -1,0 +1,4 @@
+-- Salvar os dados criados na API
+-- Fazer os dados da API aparecerem no front
+-- Criar componentes do formulário e da table
+-- Juntar tudo no Docker-compose up
