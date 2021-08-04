@@ -67,7 +67,7 @@ export default {
       
     },
       grava(){
-        this.$http
+        axios
           .post('http://localhost:3000/create', this.cliente)
           .then(() => this.cliente = new cliente(), err => console.log(err));
       },
