@@ -4,15 +4,15 @@
       <form class="form" @submit.prevent="grava()"> 
         <div class="form-group">
             <label>Nome </label>
-            <input v-model.lazy="cliente.nome" placeholder="Nome Completo" id="nome" class="form-control" autocomplete="off" required autofocus/>        
+            <input v-model.lazy="cliente.nome" placeholder="Nome Completo" class="form-control" autocomplete="off" required autofocus/>        
         </div>
         <div class="form-group">
             <label>Email </label>
-            <input v-model.lazy="cliente.email" placeholder="Inserir email" class="form-control" value=" " required/>
+            <input v-model.lazy="cliente.email" placeholder="Inserir email" class="form-control" required/>
         </div>
         <div class="form-group">
             <label for="valor">Valor</label>
-            <input id="valor" v-model.lazy="cliente.valor" placeholder="Insira o valor em reais" class="form-control" value="R$ 0.00" required />
+            <input id="valor" v-model.lazy="cliente.valor" placeholder="Insira o valor em reais" class="form-control" required />
         </div>
         <button class="btn btn-primary" type="submit">Incluir Cliente</button>
     </form>
@@ -31,7 +31,7 @@
             </thead>
             <template #body="sort">
               <tbody>
-                  <tr v-for="cliente in sort.clientes" :key="cliente.valor">
+                  <tr v-for="cliente in sort.cliente" :key="cliente.valor">
                     <td>${cliente.nome}</td>
                     <td>${cliente.email}</td>
                     <td>${cliente.valor}</td>
@@ -59,11 +59,22 @@ export default {
         }
     }
   }, 
-    methods: {
+  methods: {
+    async getData() {
+      try {
+        const response = await fetch(
+          "http://localhost:3000/show"
+        );
+        // JSON responses are automatically parsed.
+        this.cliente = response.data;
+      } catch (error) {
+        console.log(error);
+      }
+    },
       grava(){
         this.$http
           .post('http://localhost:3000/create', this.cliente)
-          .then(() => this.cliente = new Cliente(), err => console.log(err));
+          .then(() => this.cliente = new cliente(), err => console.log(err));
       },
     }
   }
