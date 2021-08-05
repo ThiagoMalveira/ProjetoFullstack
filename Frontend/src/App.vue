@@ -17,6 +17,7 @@
         <button class="btn btn-primary" type="submit">Incluir Cliente</button>
     </form>
       <div>
+        <h1 class="text-center">Lista de clientes</h1>
         <sorted-table
               :values="cliente"
               ascIcon="<span> ▲</span>"
@@ -31,10 +32,10 @@
             </thead>
             <template>
               <tbody>
-                  <tr>
-                    <td>{{cliente.nome}}</td>
-                    <td>{{cliente.email}}</td>
-                    <td>{{cliente.valor}}</td>
+                  <tr v-for="clientes in cliente" :key="clientes">
+                    <td>{{ clientes.nome }}</td>
+                    <td>{{ clientes.email }}</td>
+                    <td>{{ clientes.valor }}</td>
                   </tr>
               </tbody>
             </template>
@@ -52,11 +53,7 @@ export default {
   },
   data(){
     return {
-        cliente: [{
-          "nome": "",
-          "email": "",
-          "valor": ""
-        }],  
+        cliente: [],  
     }
   },
 mounted(){
@@ -66,7 +63,7 @@ methods: {
     async getData() {
       this.$http
       .get('http://localhost:3000/show')
-      .then(response => {(this.cliente = response.json)})
+      .then(response => {(this.cliente = JSON.stringify(response.json))})
       .catch(e => {
         console.log(e)
       })
@@ -83,10 +80,10 @@ methods: {
 
 <style>
 .table {
-  margin-top: 150px;
+  margin-top: 10%;
   width: 100%;
   max-width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 5%;
   border-radius: 30px solid;
 }
 .table > thead > tr > th,
@@ -194,7 +191,7 @@ fieldset[disabled] a.btn {
 .form-control {
   display: block;
   width: 100%;
-  height: 34px;
+  height: 30%;
   padding: 6px 12px;
   font-size: 14px;
   line-height: 1.42857143;
@@ -243,20 +240,19 @@ textarea.form-control {
   height: auto;
 }
 .text-center {
-  margin-top: 50px;
   text-align: center;
 }
 .form-group {
-  margin-top: 50px;
-  margin-bottom: 15px;
-  margin-right: 15px;
-  margin-left: 150px;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  margin-right: 5%;
+  margin-left: 5%;
   display: inline-block;
   vertical-align: middle;
   align-items: center;
 }
 .btn-primary {
-  margin-top: 50px;
+  margin-top: 1%;
   background-image: -webkit-linear-gradient(top, #337ab7 0%, #265a88 100%);
   background-image:      -o-linear-gradient(top, #337ab7 0%, #265a88 100%);
   background-image: -webkit-gradient(linear, left top, left bottom, from(#337ab7), to(#265a88));
