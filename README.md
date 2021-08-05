@@ -1,6 +1,10 @@
 # ProjetoFullstack
 Projeto dedicado a aprender NodeJs + VueJs + MongoDB
 
+Lembrando que o backend está completo
+
+o Frontend está completo a parte visual faltando acrescentar as funcionalidades.
+
 Depois de clonar o projeto
 
 
